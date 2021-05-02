@@ -16,7 +16,7 @@ namespace Telescope.Common.Contracts.Metadata
         /// Whether the cell's output is scrolled, unscrolled, or autoscrolled
         /// </summary>
         [JsonPropertyName("scrolled")]
-        public ScrollStatus Scrolled { get; set; }
+        public bool Scrolled { get; set; }
 
         /// <summary>
         /// If False, prevent deletion of the cell

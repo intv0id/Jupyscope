@@ -7,7 +7,7 @@ namespace Telescope.Common.Contracts.CellOutputs
     public class BaseCellOutput
     {
         [JsonPropertyName("output_type")]
-        public OutputType Type { get; set; }
+        public string Type { get; set; }
 
         [JsonPropertyName("metadata")]
         public OutputMetadata Metadata { get; set; }

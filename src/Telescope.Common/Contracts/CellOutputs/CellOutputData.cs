@@ -4,7 +4,7 @@ using Telescope.Common.Contracts.Enums;
 namespace Telescope.Common.Contracts.CellOutputs
 {
     // TODO handle mime types
-    public class CellOutputData : Dictionary<MimeTypes, object>
+    public class CellOutputData : Dictionary<string, object>
     {
     }
 }

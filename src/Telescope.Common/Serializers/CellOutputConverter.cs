@@ -53,7 +53,6 @@ namespace Telescope.Common.Serializers
                 OutputType.stream => (StreamOutput)JsonSerializer.Deserialize(ref reader, typeof(StreamOutput)),
                 _ => throw new NotSupportedException(),
             };
-            cell.Type = cellType;
 
             // Check we reached the end
             if (!reader.Read() || reader.TokenType != JsonTokenType.EndObject)
@@ -72,7 +71,7 @@ namespace Telescope.Common.Serializers
             writer.WriteStartObject();
             try
             {
-                switch (value.Type)
+                switch (Enum.Parse(typeof(OutputType), value.Type))
                 {
                     case OutputType.display_data:
                         JsonSerializer.Serialize(writer, (DataOutput)value);

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Dahomey.Json.Attributes;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Telescope.Common.Contracts.Enums;
 
 namespace Telescope.Common.Contracts.Cells
 {
+    [JsonDiscriminator(CellTypeNames.Markdown)]
     class MarkdownCell : AttachableCell
     {
         [JsonPropertyName("source")]

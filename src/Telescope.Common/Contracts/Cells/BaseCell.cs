@@ -10,7 +10,7 @@ namespace Telescope.Common.Contracts.Cells
         public string Id { get; set; }
 
         [JsonPropertyName("cell_type")]
-        public CellType Type { get; set; }
+        public string Type { get; set; }
 
         [JsonPropertyName("metadata")]
         public BaseCellMetadata Metadata { get; set; }

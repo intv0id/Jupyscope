@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Dahomey.Json.Attributes;
+using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Telescope.Common.Contracts.CellOutputs;
-using Telescope.Common.Contracts.Metadata;
+using Telescope.Common.Contracts.Enums;
 
 namespace Telescope.Common.Contracts.Cells
 {
+    [JsonDiscriminator(CellTypeNames.Code)]
     class CodeCell : BaseCell
     {
         [JsonPropertyName("source")]

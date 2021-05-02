@@ -32,7 +32,7 @@ namespace Telescope.Common.Serializers
                 throw new JsonException();
             }
 
-            if (!reader.Read() || reader.TokenType != JsonTokenType.Number)
+            if (!reader.Read() || reader.TokenType != JsonTokenType.String)
             {
                 throw new JsonException();
             }
@@ -52,7 +52,6 @@ namespace Telescope.Common.Serializers
                 CellType.raw => (RawCell)JsonSerializer.Deserialize(ref reader, typeof(RawCell)),
                 _ => throw new NotSupportedException(),
             };
-            cell.Type = cellType;
 
             // Check we reached the end
             if (!reader.Read() || reader.TokenType != JsonTokenType.EndObject)
