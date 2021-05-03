@@ -5,9 +5,15 @@
 	  <RazorCompileToolset>RazorSdk</RazorCompileToolset>
 	  <RazorCompileOnBuild>true</RazorCompileOnBuild>
 	  <EmbedRazorGenerateSources>true</EmbedRazorGenerateSources>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Version>0.0.1</Version>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageProjectUrl>https://github.com/intv0id/Telescope</PackageProjectUrl>
+	  <Description>Telescope provides a .NET support for rendering Jupyter notebooks into HTML format.</Description>
   </PropertyGroup>
 	
   <ItemGroup>
+	  <PackageReference Include="Markdig.Signed" Version="0.24.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />

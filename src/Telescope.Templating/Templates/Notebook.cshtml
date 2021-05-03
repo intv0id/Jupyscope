@@ -1,0 +1,19 @@
+﻿@model Telescope.Common.Contracts.Notebook
+@using Microsoft.AspNetCore.Html
+@using Telescope.Common.Contracts.Cells 
+@using Telescope.Server.Extensions.CellExtensions;
+
+
+<div>
+    <table>
+        <tbody>
+            @foreach (var cell in Model.Cells)
+            {
+                <tr>
+                    <td>@if (cell is CodeCell codeCell) { <p>[@codeCell.ExecutionCount]</p> }</td>
+                    <td>@(new HtmlString(cell.ToHtml()))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
