@@ -1,8 +1,8 @@
-# [WIP] 🔭 Telescope
+# [WIP] 🔭 Jupyscope
 
 [![Tests][UnitTestBadgeImage]][UnitTestBadgeLink]
 
-A Jupyter notebook viewer extension for the Windows explorer.
+A Jupyter notebook viewer implemented in C#.
 
 ## Dev resources
 
