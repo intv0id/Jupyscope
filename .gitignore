@@ -2,3 +2,5 @@ bin/
 obj/
 /src/packages
 /src/.vs/Telescope
+.vs
+.csproj.user
