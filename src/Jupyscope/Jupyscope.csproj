@@ -6,6 +6,7 @@
 	  <RazorCompileOnBuild>true</RazorCompileOnBuild>
 	  <EmbedRazorGenerateSources>true</EmbedRazorGenerateSources>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	  <Version>0.0.3</Version>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/intv0id/Jupyscope</PackageProjectUrl>
@@ -15,10 +16,10 @@
   <ItemGroup>
 	  <PackageReference Include="Dahomey.Json" Version="1.10.4" />
 	  <PackageReference Include="Markdig.Signed" Version="0.22.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.Extensions" Version="2.2.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 </Project>
