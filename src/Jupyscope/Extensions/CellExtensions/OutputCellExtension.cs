@@ -1,7 +1,7 @@
-﻿using Jupyscope.Contracts.CellOutputs;
+using System;
+using Jupyscope.Contracts.CellOutputs;
 using Jupyscope.Helpers;
 using Markdig;
-using System;
 
 namespace Jupyscope.Extensions.CellExtensions
 {
@@ -30,8 +30,20 @@ namespace Jupyscope.Extensions.CellExtensions
 
         private static string convertDataToHtml(DataOutput dataCell)
         {
-            return "";
+            var result = "";
+            foreach (var data in dataCell.Data)
+            {
+                if (data.Key.StartsWith("image") && data.Value is System.Text.Json.JsonArray dataArr)
+                {
+                    if (data.Key.Contains("svg"))
+                    {
+                        result += string.Join("", dataArr);
+                    }
+                }
+            }
+            return result;
         }
+
         private static string convertErrorToHtml(ErrorOutput errCell)
         {
             return "";
