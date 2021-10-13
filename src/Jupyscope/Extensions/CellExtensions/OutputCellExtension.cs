@@ -1,10 +1,7 @@
-﻿using Markdig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Jupyscope.Contracts.CellOutputs;
 using Jupyscope.Helpers;
-using Jupyscope.Contracts.CellOutputs;
-using Jupyscope.Contracts.Enums;
+using Markdig;
+using System;
 
 namespace Jupyscope.Extensions.CellExtensions
 {
@@ -14,9 +11,9 @@ namespace Jupyscope.Extensions.CellExtensions
 
         static OutputCellExtension()
         {
-            //var htmlParsinHelper = new HTMLParsingHelper(imagesBlockedCallBack: ImagesBlockedCallBack);
+            var htmlParsinHelper = new HTMLParsingHelper(imagesBlockedCallBack: ImagesBlockedCallBack);
             var pipelineBuilder = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseEmojiAndSmiley().UseYamlFrontMatter().UseMathematics();
-            //pipelineBuilder.Extensions.Add(htmlParsinHelper);
+            pipelineBuilder.Extensions.Add(htmlParsinHelper);
             pipeline = pipelineBuilder.Build();
         }
 
@@ -42,6 +39,10 @@ namespace Jupyscope.Extensions.CellExtensions
         private static string convertStreamToHtml(StreamOutput streamCell)
         {
             return "";
+        }
+        private static void ImagesBlockedCallBack()
+        {
+            // TODO handle blocked images callback
         }
     }
 }
