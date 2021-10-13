@@ -13,6 +13,16 @@
                     <td>@if (cell is CodeCell codeCell) { <p>[@codeCell.ExecutionCount]</p> }</td>
                     <td>@(new HtmlString(cell.ToHtml()))</td>
                 </tr>
+                @if (cell is CodeCell codeCell2) 
+                {
+                    @foreach (var outputCell in codeCell2.Outputs)
+                    {
+                        <tr>
+                            <td/>
+                            <td>@(new HtmlString(outputCell.ToHtml()))</td>
+                        </tr>
+                    }
+                }
             }
         </tbody>
     </table>
