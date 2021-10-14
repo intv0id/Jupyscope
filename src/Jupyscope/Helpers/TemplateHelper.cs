@@ -20,7 +20,7 @@ namespace Jupyscope.Helpers
 
         static TemplateHelper()
         {
-            var thisAssembly = Assembly.GetExecutingAssembly();
+            var thisAssembly = Assembly.GetAssembly(typeof(TemplateHelper));
             var viewAssembly = RelatedAssemblyAttribute.GetRelatedAssemblies(thisAssembly, false).Single();
             var razorCompiledItems = new RazorCompiledItemLoader().LoadItems(viewAssembly);
 
