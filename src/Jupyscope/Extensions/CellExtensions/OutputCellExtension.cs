@@ -33,11 +33,28 @@ namespace Jupyscope.Extensions.CellExtensions
             var result = "";
             foreach (var data in dataCell.Data)
             {
-                if (data.Key.StartsWith("image") && data.Value is System.Text.Json.JsonArray dataArr)
+                if (data.Key.StartsWith("image"))
                 {
+                    var imgSrc = "";
+                    if (data.Value is System.Text.Json.JsonArray dataArr)
+                    {
+                        imgSrc = string.Join("", dataArr);
+                    }
+                    else if (data.Value is string dataStr)
+                    {
+                        imgSrc = dataStr;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                     if (data.Key.Contains("svg"))
                     {
-                        result += string.Join("", dataArr);
+                        result += imgSrc;
+                    }
+                    else if (data.Key.Contains("png"))
+                    {
+                        result += $"<img src=\" data:{data.Key};base64,{imgSrc}\" alt=\"Output image\"/>";
                     }
                 }
             }
