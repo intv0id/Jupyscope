@@ -3,7 +3,7 @@
   <PropertyGroup>
 	  <TargetFramework>netcoreapp3.1</TargetFramework>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>0.1.0</Version>
+	  <Version>0.1.1</Version>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/intv0id/Jupyscope</PackageProjectUrl>
 	  <Description>Jupyscope provides a .NET support for rendering Jupyter notebooks into HTML format.</Description>
