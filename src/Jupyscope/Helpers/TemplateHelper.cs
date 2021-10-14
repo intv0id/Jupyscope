@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Jupyscope.Helpers
 {
@@ -20,7 +21,9 @@ namespace Jupyscope.Helpers
 
         static TemplateHelper()
         {
-            var thisAssembly = Assembly.GetExecutingAssembly();
+            Console.WriteLine("babar");
+            Console.WriteLine(typeof(TemplateHelper).Assembly.GetName());
+            var thisAssembly = typeof(TemplateHelper).Assembly;
             var viewAssembly = RelatedAssemblyAttribute.GetRelatedAssemblies(thisAssembly, false).Single();
             var razorCompiledItems = new RazorCompiledItemLoader().LoadItems(viewAssembly);
 
