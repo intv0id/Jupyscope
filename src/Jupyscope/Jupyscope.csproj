@@ -1,13 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	  <TargetFramework>netcoreapp3.1</TargetFramework>
-	  <RazorCompileToolset>RazorSdk</RazorCompileToolset>
-	  <RazorCompileOnBuild>true</RazorCompileOnBuild>
-	  <EmbedRazorGenerateSources>true</EmbedRazorGenerateSources>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-	  <Version>0.0.5</Version>
+	  <Version>0.1.0</Version>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/intv0id/Jupyscope</PackageProjectUrl>
 	  <Description>Jupyscope provides a .NET support for rendering Jupyter notebooks into HTML format.</Description>

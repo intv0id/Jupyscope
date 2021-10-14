@@ -1,62 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.Hosting;
-using System;
+﻿using Jupyscope.Contracts;
+using Jupyscope.Contracts.Cells;
+using Jupyscope.Extensions.CellExtensions;
+using Microsoft.AspNetCore.Html;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Jupyscope.Helpers
 {
     public static class TemplateHelper
     {
-        public static readonly Dictionary<string, RazorCompiledItem> RazorCompiledItems;
-
-        static TemplateHelper()
+        public static string RenderHtml(Notebook model)
         {
-            var thisAssembly = Assembly.GetExecutingAssembly();
-            var viewAssembly = RelatedAssemblyAttribute.GetRelatedAssemblies(thisAssembly, false).Single();
-            var razorCompiledItems = new RazorCompiledItemLoader().LoadItems(viewAssembly);
+            return $"<div><table><tbody>{GetCellsContent(model.Cells)}</tbody></table></div>";
+        }
 
-            RazorCompiledItems = new Dictionary<string, RazorCompiledItem>();
-            foreach (var item in razorCompiledItems)
+        private static string GetCellsContent(List<BaseCell> cells)
+        {
+            string content = "";
+            foreach(BaseCell cell in cells)
             {
-                RazorCompiledItems.Add(item.Identifier, item);
+                CodeCell codeCell = cell as CodeCell;
+                string counter = codeCell != null ? "<p>[" + codeCell.ExecutionCount.ToString() + "]</p>" : "";
+               
+                content += $"<tr><td>{counter}</td><td>{new HtmlString(cell.ToHtml())}</td></tr>";
+                if (codeCell != null)
+                {
+                  foreach(var outputCell in codeCell.Outputs)
+                  {
+                        content += $"<tr><td/><td>{new HtmlString(outputCell.ToHtml())}</td></tr>";
+                  }
+                }
             }
-        }
-
-        public static async Task<string> RenderHtml<TModel>(RazorCompiledItem razorCompiledItem, TModel model)
-        {
-            using var stringWriter = new StringWriter();
-            var razorPage = GetRazorPage(razorCompiledItem, model, stringWriter);
-            await razorPage.ExecuteAsync();
-            return stringWriter.ToString();
-        }
-
-        private static RazorPage GetRazorPage<TModel>(RazorCompiledItem razorCompiledItem, TModel model, TextWriter textWriter)
-        {
-            var razorPage = (RazorPage<TModel>)Activator.CreateInstance(razorCompiledItem.Type);
-
-            razorPage.ViewData = new ViewDataDictionary<TModel>(
-                new EmptyModelMetadataProvider(),
-                new ModelStateDictionary())
-            {
-                Model = model
-            };
-
-            razorPage.ViewContext = new ViewContext
-            {
-                Writer = textWriter
-            };
-
-            razorPage.HtmlEncoder = HtmlEncoder.Default;
-            return razorPage;
+            return content;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Telescope.Tests
         {
             var notebookJsonString = Encoding.UTF8.GetString(Resources.neural_cue_combination);
             var notebook = TelescopeConverter.Deserialize<Notebook>(notebookJsonString);
-            _ = await notebook.ToHtml();
+            _ = notebook.ToHtml();
         }
     }
 
