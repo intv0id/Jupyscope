@@ -1,6 +1,6 @@
-﻿namespace Jupyscope.Client.Helpers
+﻿namespace Jupyscope.Helpers
 {
-    static class HTMLHeaderHelper
+    public static class HTMLHeaderHelper
     {
         public static readonly string Header = $@"<!DOCTYPE html>{mathFormatterScript}{codeHighlighterScript}";
 
