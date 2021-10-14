@@ -35,16 +35,8 @@ namespace Jupyscope.Extensions.CellExtensions
             {
                 if (data.Key.StartsWith("image"))
                 {
-                    var imgSrc = "";
-                    if (data.Value is System.Text.Json.JsonArray dataArr)
-                    {
-                        imgSrc = string.Join("", dataArr);
-                    }
-                    else if (data.Value is string dataStr)
-                    {
-                        imgSrc = dataStr;
-                    }
-                    else
+                    var imgSrc = getStringContent(data.Value);
+                    if (string.IsNullOrEmpty(imgSrc))
                     {
                         continue;
                     }
@@ -57,6 +49,10 @@ namespace Jupyscope.Extensions.CellExtensions
                         result += $"<img src=\" data:{data.Key};base64,{imgSrc}\" alt=\"Output image\"/>";
                     }
                 }
+                else if (data.Key == "text/html")
+                {
+                    result += getStringContent(data.Value);
+                }
             }
             return result;
         }
@@ -65,13 +61,28 @@ namespace Jupyscope.Extensions.CellExtensions
         {
             return "";
         }
+
         private static string convertStreamToHtml(StreamOutput streamCell)
         {
             return "";
         }
+
         private static void ImagesBlockedCallBack()
         {
             // TODO handle blocked images callback
+        }
+
+        private static string getStringContent(object obj)
+        {
+            if (obj is System.Text.Json.JsonArray dataArr)
+            {
+                return string.Join("", dataArr);
+            }
+            if (obj is string dataStr)
+            {
+                return dataStr;
+            }
+            return string.Empty;
         }
     }
 }
