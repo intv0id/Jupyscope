@@ -9,8 +9,4 @@
     <ProjectReference Include="..\Jupyscope\Jupyscope.csproj" />
     <ProjectReference Include="..\Jupyscope.TestData\Jupyscope.TestData.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
 </Project>

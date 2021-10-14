@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Jupyscope.Client.Helpers;
+using Jupyscope.Helpers;
 using Jupyscope.Contracts;
 using Jupyscope.Extensions;
 using Jupyscope.Serializers;
