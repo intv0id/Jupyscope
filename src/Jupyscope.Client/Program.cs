@@ -17,7 +17,7 @@ namespace Telescope.Client
         {
             var notebookJsonString = Encoding.UTF8.GetString(Resources.neural_cue_combination);
             var notebook = TelescopeConverter.Deserialize<Notebook>(notebookJsonString);
-            var htmlNotebook = await notebook.ToHtml();
+            var htmlNotebook = notebook.ToHtml();
             htmlNotebook = HTMLHeaderHelper.Header + htmlNotebook;
             var tempFile = Path.Combine(Path.GetTempPath(), $"temp_{Guid.NewGuid()}.html");
             await File.WriteAllTextAsync(tempFile, htmlNotebook);
