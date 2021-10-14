@@ -6,9 +6,9 @@ namespace Jupyscope.Extensions
 {
     public static class NotebookExtension
     {
-        public static async Task<string> ToHtml(this Notebook notebook)
+        public static string ToHtml(this Notebook notebook)
         {
-            var htmlResult = await TemplateHelper.RenderHtml(notebook);
+            var htmlResult = TemplateHelper.RenderHtml(notebook);
             return htmlResult;
         }
     }
