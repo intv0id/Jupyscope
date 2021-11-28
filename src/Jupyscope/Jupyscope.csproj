@@ -7,6 +7,7 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageProjectUrl>https://github.com/intv0id/Jupyscope</PackageProjectUrl>
 	  <Description>Jupyscope provides a .NET support for rendering Jupyter notebooks into HTML format.</Description>
+	  <OutputPath>$(SolutionDir)Artifacts\Build\$(Platform)\$(Configuration)\JupyscopeLib\</OutputPath>
   </PropertyGroup>
 	
   <ItemGroup>

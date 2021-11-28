@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Jupyscope.PreviewHandler": {
+      "commandName": "Project"
+    }
+  }
+}

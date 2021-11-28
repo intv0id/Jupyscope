@@ -3,10 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <OutputPath>$(SolutionDir)Artifacts\Build\$(Platform)\$(Configuration)\JupyscopeClient\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Jupyscope\Jupyscope.csproj" />
     <ProjectReference Include="..\Jupyscope.TestData\Jupyscope.TestData.csproj" />
+    <ProjectReference Include="..\Jupyscope\Jupyscope.csproj" />
   </ItemGroup>
 </Project>

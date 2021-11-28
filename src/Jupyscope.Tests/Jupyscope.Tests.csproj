@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	<OutputPath>$(SolutionDir)Artifacts\Tests\$(Platform)\$(Configuration)\Test\</OutputPath>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
