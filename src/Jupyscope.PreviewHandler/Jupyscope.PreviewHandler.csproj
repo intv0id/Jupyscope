@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">	
+  <PropertyGroup>
+    <Platforms>x64</Platforms>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyTitle>JupyscopePreviewHandler</AssemblyTitle>
+    <AssemblyDescription>Jupyter notebook preview handler</AssemblyDescription>
+    <AssemblyProduct>Jupyscope</AssemblyProduct>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Description>Jupyter notebook preview handler</Description>
+    <OutputPath>$(SolutionDir)Artifacts\Build\$(Platform)\$(Configuration)\JupyscopePreviewHandler\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <ProjectGuid>{DEFFEF2B-45A6-4073-80A9-AAC39E34F808}</ProjectGuid>
+    <RootNamespace>Jupyscope.PreviewHandler</RootNamespace>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <EnableComHosting>true</EnableComHosting>
+    <IntermediateOutputPath>$(SolutionDir)Artifacts\Build\$(Platform)\$(Configuration)\obj\$(AssemblyName)\</IntermediateOutputPath>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <Compile Update="JupyterNotebookPreviewHandlerControl.cs" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.26" />
+    <PackageReference Include="Markdig.Signed" Version="0.22.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.IO.Abstractions" Version="12.2.5" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\PowerToys\src\modules\previewpane\common\PreviewHandlerCommon.csproj" />
+    <ProjectReference Include="..\Jupyscope\Jupyscope.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

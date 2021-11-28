@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?define RepoDir="$(var.ProjectDir)..\..\" ?>
+	<?define BinX64Dir="$(var.RepoDir)Artifacts\Build\x64\$(var.Configuration)\" ?>
+
+	<Product Id="*" 
+			 Name="Jupyscope" 
+			 Language="1033" 
+			 Version="$(var.Version)" 
+			 Manufacturer="Jupyscope" 
+			 UpgradeCode="6489651b-afea-482c-8cb5-d2c52f6b4f8a">
+		
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" Platform="x64" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Property Id="WINDOWSBUILDNUMBER" Secure="yes">
+			<RegistrySearch Id="BuildNumberSearch" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion" Name="CurrentBuildNumber" Type="raw" />
+		</Property>
+		<Condition Message="This application is only supported on Windows 10 version 1903 (build 18362) or higher.">
+			<![CDATA[(WINDOWSBUILDNUMBER >= 18362)]]>
+		</Condition>
+
+		<Feature Id="ProductFeature" Title="Jupyscope.Installer" Level="1">
+			<ComponentGroupRef Id="JupyscopePreviewHandler" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Jupyscope">
+					<Directory Id="FileExplorerPreviewInstallFolder" Name="FileExplorerPreview" />
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="JupyscopePreviewHandler" Directory="FileExplorerPreviewInstallFolder">
+			<Component Id="Module_PowerPreview" Guid="FF1700D5-1B07-4E07-9A62-4D206645EEA9" Win64="yes">
+				<!-- Files to include dll's for new Previewer and it's dependencies -->
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\Dahomey.Json.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\Jupyscope.PreviewHandler.comhost.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\Jupyscope.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\PreviewHandlerCommon.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\HtmlAgilityPack.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\Jupyscope.PreviewHandler.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\Markdig.Signed.dll" />
+				<File Source="$(var.BinX64Dir)JupyscopePreviewHandler\System.IO.Abstractions.dll" />
+			</Component>
+			<Component Id="Module_PowerPreview_PerUserRegistry" Guid="CD90ADC0-7CD5-4A62-B0AF-23545C1E6DD3" Win64="yes">
+				<!-- Registry Key for Class Registration of Jupyter Notebook Preview Handler -->
+				<RegistryKey Root="HKCR" Key="CLSID\{e972eda6-2734-4dab-9dc0-289b41eb89ea}">
+					<RegistryValue Type="string" Value="Jupyscope.PreviewHandler" />
+					<RegistryValue Type="string" Name="DisplayName" Value="Jupyter Notebook Preview Handler" />
+					<RegistryValue Type="string" Name="AppID" Value="{CF142243-F059-45AF-8842-DBBE9783DB14}" />
+					<RegistryValue Type="string" Key="Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" />
+					<RegistryValue Type="string" Key="InprocServer32" Value="[FileExplorerPreviewInstallFolder]Jupyscope.PreviewHandler.comhost.dll" />
+					<RegistryValue Type="string" Key="InprocServer32" Name="Assembly" Value="JupyscopePreviewHandler, Version=$(var.Version).0, Culture=neutral" />
+					<RegistryValue Type="string" Key="InprocServer32" Name="Class" Value="Jupyscope.PreviewHandler.JupyterNotebookPreviewHandler" />
+					<RegistryValue Type="string" Key="InprocServer32" Name="ThreadingModel" Value="Both" />
+					<RegistryValue Type="string" Key="InprocServer32\$(var.Version).0" Name="Assembly" Value="JupyscopePreviewHandler, Version=$(var.Version).0, Culture=neutral" />
+					<RegistryValue Type="string" Key="InprocServer32\$(var.Version).0" Name="Class" Value="Jupyscope.PreviewHandler.JupyterNotebookPreviewHandler" />
+				</RegistryKey>
+				
+				<!-- Add Jupyter Notebook previewer to preview handlers list -->
+				<RegistryKey Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\PreviewHandlers">
+					<RegistryValue Type="string" Name="{e972eda6-2734-4dab-9dc0-289b41eb89ea}" Value="Jupyter Notebook Preview Handler" />
+				</RegistryKey>
+
+				<!-- Add file type association for Jupyter Notebook Preview Handler -->
+				<RegistryKey Root="HKCR" Key=".ipynb\shellex">
+					<RegistryValue Type="string" Key="{8895b1c6-b41f-4c1c-a562-0d564250836f}" Value="{e972eda6-2734-4dab-9dc0-289b41eb89ea}" />
+				</RegistryKey>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

@@ -7,25 +7,68 @@ A Jupyter notebook viewer implemented in C#. It converts ipynb files to html.
 
 ## Get started 
 
+### Build the pane preview
+
+#### Prerequisites
+
+* Install WiX and WiX extension for visual studio
+
+#### Build
+
+* Build the solution
+* Build WiX project
+* The produced executable is located in `Artifacts\Installer\x86\[Debug/Release]`.
+
+### Use the Nuget Library
+
 A use case is provided in the Jupyscope.Client project:
 
 ``` cs
-// Some ipynb file content
-var notebookJsonString = ...; 
+using Jupyscope.Contracts;
+using Jupyscope.Extensions;
+using Jupyscope.Helpers;
+using Jupyscope.Serializers;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
-// Deserialize the notebook content
-var notebook = TelescopeConverter.Deserialize<Notebook>(notebookJsonString);
+namespace Telescope.Client
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            // Some ipynb file content
+            var notebookJsonString = Encoding.UTF8.GetString(...);
 
-// HTML ready to display notebook
-var htmlNotebook = $"{HTMLHeaderHelper.Header}{notebook.ToHtml()}{HTMLHeaderHelper.Footer}";
+            // Deserialize the notebook content
+            var notebook = TelescopeConverter.Deserialize<Notebook>(notebookJsonString);
+
+            // HTML ready to display notebook
+            htmlNotebook = $"{HTMLHeaderHelper.Header}{notebook.ToHtml()}{HTMLHeaderHelper.Footer}";
+
+            // Save the result
+            var tempFile = Path.Combine(Path.GetTempPath(), $"temp_{Guid.NewGuid()}.html");
+            await File.WriteAllTextAsync(tempFile, htmlNotebook);
+
+            // Open a browser (Windows only)
+            Process.Start(@"cmd.exe ", $@"/c {tempFile}");
+        }
+    }
+}
+
 ```
 
 ## Dev resources
 
 * [ipynb file format reference](https://nbformat.readthedocs.io/en/latest/format_description.html)
+* [How to register a file preview handler](https://docs.microsoft.com/en-us/windows/win32/shell/how-to-register-a-preview-handler)
 
 ## External dependencies
 
+* [PowerToys](https://github.com/microsoft/PowerToys)
 * [Markdig](https://github.com/xoofx/markdig)
 * [Katex](https://katex.org/)
 * [Highlight.js](https://highlightjs.org/)

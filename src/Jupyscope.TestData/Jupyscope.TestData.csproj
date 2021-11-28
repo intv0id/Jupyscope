@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	<OutputPath>$(SolutionDir)Artifacts\Tests\$(Platform)\$(Configuration)\TestData\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
     <EmbeddedResource Update="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
